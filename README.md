@@ -21,9 +21,29 @@ Instructions for setting up the robot and running the code.
 
 ---
 ### 📂 Repository Contents
+```mermaid
+graph TD
+    subgraph Artifacts["Repository Artifacts"]
+        Code[robot_main_5_sensors.ino<br>Source Code]
+        Docs[README.md<br>Documentation]
+        Video[Finale_round.MOV<br>Demo Video]
+    end
+
+    subgraph Purpose["System Context"]
+        Impl[Implementation<br>5-Sensor Logic]
+        Design[Design Specs<br>Architecture]
+        Perf[Performance<br>Real-world Test]
+    end
+
+    Code -->|Implements| Impl
+    Docs -->|Documents| Design
+    Video -->|Demonstrates| Perf
+
+    style Artifacts fill:#f9f9f9,stroke:#333,stroke-dasharray: 5 5
 This repository is organized as follows:
 * `src/` - Main source code files.
 * `docs/` - Detailed documentation files (linked above).
 * `videos/` - Demonstration footage.
 
-> *Designed and implemented by [Your Name]*
+> *Designed and implemented by [Idan Vimenetz]*
+
