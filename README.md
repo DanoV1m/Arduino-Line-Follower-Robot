@@ -17,6 +17,7 @@ Detailed specifications of the physical components and wiring diagrams.
 Instructions for setting up the robot and running the code.
 
 🔹 **Prerequisites:** Arduino IDE, standard USB cable.
+
 🔹 **Installation:** Clone the repo and upload `robot_main_5_sensors.ino`.
 
 ---
@@ -52,5 +53,6 @@ This repository is organized as follows:
 *   `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
