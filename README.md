@@ -1,41 +1,29 @@
 # Autonomous Line Follower Robot 🤖
 
-An Arduino-based autonomous robot designed to navigate a predefined track by detecting contrast distinctions (black line on white surface). Developed as a first-year engineering project.
+This project documents an autonomous navigation system built with Arduino. The documentation below covers the complete system design, from hardware specifications to control algorithms.
 
-## 🛠 Hardware Architecture
+## 📘 System Design and Architecture
+High-level overview of how the hardware and software components interact.
 
-The robot is built on a 4WD chassis and utilizes the following components:
-* **Microcontroller:** Arduino Uno R3
-* **Motor Driver:** L298N Dual H-Bridge
-* **Sensors:** 3-Channel IR Line Tracking Module (TCRT5000 based)
-* **Actuators:** 4x DC Gear Motors (Yellow)
-* **Power:** 2x 18650 Li-ion Batteries (7.4V)
+* ➡️ [**View Full System Architecture Document**](./SYSTEM_ARCHITECTURE.md)
+* ➡️ [**View Core Control Logic & Algorithms**](./CONTROL_LOGIC.md)
 
-## ⚙️ How It Works
+## ⚙️ Hardware and Electronics
+Detailed specifications of the physical components and wiring diagrams.
 
-1.  **Sensing:** The infrared sensors continuously emit IR light and measure the reflection. Black surfaces absorb light (Low reflection), while white surfaces reflect it (High reflection).
-2.  **Processing:** The Arduino processes the boolean signals from the 3 sensors (Left, Center, Right) in real-time.
-3.  **Actuation:** A control algorithm adjusts the motor speeds and direction to keep the center sensor aligned with the line.
-    * *Center detected:* Move Forward.
-    * *Left detected:* Correct trajectory to the Left.
-    * *Right detected:* Correct trajectory to the Right.
+* ➡️ [**View Hardware Specifications & Pinout**](./HARDWARE_SPECIFICATIONS.md)
 
-## 🔌 Wiring Pinout
+## 🚀 Getting Started
+Instructions for setting up the robot and running the code.
 
-| Component | Arduino Pin |
-|-----------|-------------|
-| Motor A (Right) Enable | 10 |
-| Motor A In1 | 9 |
-| Motor A In2 | 8 |
-| Motor B (Left) Enable | 5 |
-| Motor B In3 | 7 |
-| Motor B In4 | 6 |
-| Left Sensor | A0 |
-| Center Sensor | A1 |
-| Right Sensor | A2 |
+* **Prerequisites:** Arduino IDE, standard USB cable.
+* **Installation:** Clone the repo and upload `robot_main_5_sensors.ino`.
 
-## 🚀 Future Improvements
+---
+### 📂 Repository Contents
+This repository is organized as follows:
+* `src/` - Main source code files.
+* `docs/` - Detailed documentation files (linked above).
+* `videos/` - Demonstration footage.
 
-* Integration of PID control for smoother navigation.
-* Adding ultrasonic sensors for obstacle avoidance.
-* Bluetooth module for manual override control.
+> *Designed and implemented by [Your Name]*
