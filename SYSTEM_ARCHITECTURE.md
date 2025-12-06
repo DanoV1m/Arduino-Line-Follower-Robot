@@ -2,8 +2,8 @@
 
 This document details the high-level architecture of the Autonomous Line Follower.
 
-## 🛠 Hardware Architecture
-The system is built on a layered architecture separating power, control, and actuation. 
+## Hardware Architecture
+The system is built on a layered architecture separating power, control, and actuation.
 
 ```mermaid
 graph TD
@@ -12,3 +12,15 @@ graph TD
     MCU -->|PWM Signals| Driver
     Driver -->|Current| Motors[DC Motors]
     Sensors[IR Sensor Array] -->|Digital Input| MCU
+
+
+flowchart LR
+    Sense[Sense<br>Read IR Sensors] -->|Raw Data| Decide[Decide<br>Calc Error & State]
+    Decide -->|Correction| Act[Act<br>Motor Control]
+    Act -->|Motion| Sense
+
+    subgraph Logic["Control Loop"]
+    Sense
+    Decide
+    Act
+    end
