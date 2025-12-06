@@ -12,8 +12,12 @@ graph TD
     MCU -->|PWM Signals| Driver
     Driver -->|Current| Motors[DC Motors]
     Sensors[IR Sensor Array] -->|Digital Input| MCU
+```
 
+## Software Architecture
+The control software implements a continuous sense-decide-act loop structure.
 
+```mermaid
 flowchart LR
     Sense[Sense<br>Read IR Sensors] -->|Raw Data| Decide[Decide<br>Calc Error & State]
     Decide -->|Correction| Act[Act<br>Motor Control]
@@ -24,3 +28,4 @@ flowchart LR
     Decide
     Act
     end
+```
