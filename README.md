@@ -71,15 +71,16 @@ graph TD
 
 ### 1. Lab Testing Environment
 Testing signal integrity using an oscilloscope during development.
-![Lab Test](./lab_test.jpg)
+![Lab Test](./assets/lab_test.jpg)
 
 ### 2. Top View - Wiring & Components
 Complete assembly showing cable management and component placement.
-![Top View](./top_view.jpg)
+![Top View](./assets/top_view.jpg)
 
 ### 3. Side View - Power & Chassis
 Side profile showing the double-deck chassis and battery placement.
-![Side View](./side_view.jpg)
+![Side View](./assets/side_view.jpg)
+
 ## 🔮 Future Roadmap (PID Control)
 
 While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative):
@@ -94,6 +95,7 @@ This repository is organized as follows:
  *  `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
