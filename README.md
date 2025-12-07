@@ -15,6 +15,13 @@
 
 ---
 
+## 🎥 Demo: Robot in Action
+Click the link below to watch the robot successfully tracking the line:
+
+### [▶️ Watch Finale Round Video](./assets/Finale_round.MOV)
+
+---
+
 ## 📚 Documentation Hub
 Explore the detailed engineering documentation:
 
@@ -75,6 +82,7 @@ This repository is organized as follows:
  *  `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
