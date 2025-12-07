@@ -64,19 +64,37 @@ graph TD
     style Artifacts fill:#f9f9f9,stroke:#333,stroke-dasharray: 5 5
     style Context fill:#e1f5fe,stroke:#333
 ```
+
+---
+
+## 📸 Project Gallery
+
+### 1. Lab Testing Environment
+Testing signal integrity using an oscilloscope during development.
+![Lab Test](./lab_test.jpg)
+
+### 2. Top View - Wiring & Components
+Complete assembly showing cable management and component placement.
+![Top View](./top_view.jpg)
+
+### 3. Side View - Power & Chassis
+Side profile showing the double-deck chassis and battery placement.
+![Side View](./side_view.jpg)
 ## 🔮 Future Roadmap (PID Control)
-While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative).
-🔹 **Proportional (P):** Steer harder as the error increases.
-🔹 **Integral (I):** Correct accumulated errors over time.
-🔹 **Derivative (D):** Predict future errors based on rate of change to reduce oscillation.
 
+While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative):
+
+* **Proportional (P):** Steer harder as the error increases.
+* **Integral (I):** Correct accumulated errors over time.
+* **Derivative (D):** Predict future errors based on rate of change to reduce oscillation.
+  
 This repository is organized as follows:
-
  *  `src/` - Main source code files.
  *  `docs/` - Detailed documentation files (linked above).
  *  `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
