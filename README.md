@@ -45,6 +45,11 @@ graph TD
     style Artifacts fill:#f9f9f9,stroke:#333,stroke-dasharray: 5 5
     style Purpose fill:#e1f5fe,stroke:#333
 ```
+## 🔮 Future Roadmap (PID Control)
+While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative).
+* **Proportional (P):** Steer harder as the error increases.
+* **Integral (I):** Correct accumulated errors over time.
+* **Derivative (D):** Predict future errors based on rate of change to reduce oscillation.
 
 This repository is organized as follows:
 
@@ -53,6 +58,7 @@ This repository is organized as follows:
 *   `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
