@@ -1,123 +1,150 @@
 /**
- * Autonomous Line Follower Robot (5-Sensor Version)
+ * ----------------------------------------------------------------------------
+ * Project: Autonomous Line Follower Robot (5-Sensor Array)
+ * Author:  Idan Vimenetz
+ * Date:    December 2025
+ * * Description:
+ * This system implements a differential steering algorithm for high-precision 
+ * line tracking. It utilizes a prioritized state machine logic to handle 
+ * straight lines, slight curves, and sharp 90-degree turns.
+ * * Hardware Reference: See HARDWARE_SPECIFICATIONS.md
+ * ----------------------------------------------------------------------------
+ */
 
- * This project implements an autonomous robot capable of following a black line
- * on a white surface using a 5-channel IR sensor array for high-precision navigation.
- * * Hardware:
- * - Arduino Uno R3
- * - L298N Motor Driver
- * - 4x DC Motors (4WD Chassis)
- * - 5-Channel IR Line Tracking Module (e.g., TCRT5000 array)
- * * Author: Idan Vimenetz
- * Year: 2024 */
+// --- Configuration & Tuning ---
+// Set to true to see sensor values in Serial Monitor (slows down robot!)
+#define DEBUG_MODE false 
+
+// Motor Speed Settings (PWM: 0-255)
+const int SPEED_BASE        = 100; // Normal forward speed
+const int SPEED_FAST        = 140; // Boost speed for turns
+const int SPEED_SLOW        = 80;  // Slow wheel during gentle turn
+const int SPEED_REVERSE     = -120;// Reverse speed for sharp turns (Spin)
 
 // --- Pin Definitions ---
-// Motor A (Right Side)
-const int ENA = 10; // PWM Speed Control
-const int IN1 = 9;
-const int IN2 = 8;
+// Motor A (Right)
+const int PIN_MotorA_ENA = 10; 
+const int PIN_MotorA_IN1 = 9;
+const int PIN_MotorA_IN2 = 8;
 
-// Motor B (Left Side)
-const int ENB = 5;  // PWM Speed Control
-const int IN3 = 7;
-const int IN4 = 6;
+// Motor B (Left)
+const int PIN_MotorB_ENB = 5;  
+const int PIN_MotorB_IN3 = 7;
+const int PIN_MotorB_IN4 = 6;
 
-// 5-Channel IR Sensors
-const int SENSOR_FAR_LEFT  = A0;
-const int SENSOR_LEFT      = A1;
-const int SENSOR_MID       = A2;
-const int SENSOR_RIGHT     = A3;
-const int SENSOR_FAR_RIGHT = A4;
+// Sensors (From Far Left to Far Right)
+const int PIN_SENSOR_FAR_L = A0;
+const int PIN_SENSOR_L     = A1;
+const int PIN_SENSOR_MID   = A2;
+const int PIN_SENSOR_R     = A3;
+const int PIN_SENSOR_FAR_R = A4;
 
-// --- Speed Constants ---
-const int SPEED_FORWARD = 100;    // Base speed
-const int SPEED_TURN_SLIGHT = 90; // Gentle turn speed
-const int SPEED_TURN_SHARP = 130; // Sharp turn speed
+void setup() {
+  // Motor Pins
+  pinMode(PIN_MotorA_ENA, OUTPUT);
+  pinMode(PIN_MotorA_IN1, OUTPUT);
+  pinMode(PIN_MotorA_IN2, OUTPUT);
+  pinMode(PIN_MotorB_ENB, OUTPUT);
+  pinMode(PIN_MotorB_IN3, OUTPUT);
+  pinMode(PIN_MotorB_IN4, OUTPUT);
 
-void setup() 
-{
-// Motor Pins Setup
-  pinMode(ENA, OUTPUT);
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(ENB, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
-
-// Sensor Pins Setup (Using Analog pins as Digital Inputs)
-  pinMode(SENSOR_FAR_LEFT, INPUT);
-  pinMode(SENSOR_LEFT, INPUT);
-  pinMode(SENSOR_MID, INPUT);
-  pinMode(SENSOR_RIGHT, INPUT);
-  pinMode(SENSOR_FAR_RIGHT, INPUT);
+  // Sensor Pins
+  pinMode(PIN_SENSOR_FAR_L, INPUT);
+  pinMode(PIN_SENSOR_L,     INPUT);
+  pinMode(PIN_SENSOR_MID,   INPUT);
+  pinMode(PIN_SENSOR_R,     INPUT);
+  pinMode(PIN_SENSOR_FAR_R, INPUT);
   
-  Serial.begin(9600); 
+  Serial.begin(9600);
+  if(DEBUG_MODE) Serial.println("System Initialized - Waiting for line...");
 }
 
-void loop() 
-{
-// Read Sensors
-// Assumption: 0 (LOW) = Line Detected (Black), 1 (HIGH) = Surface (White)
-// If your sensors work the opposite way, add '!' before digitalRead.
-  bool fl = !digitalRead(SENSOR_FAR_LEFT); // Far Left
-  bool l  = !digitalRead(SENSOR_LEFT);     // Left
-  bool m  = !digitalRead(SENSOR_MID);      // Middle
-  bool r  = !digitalRead(SENSOR_RIGHT);    // Right
-  bool fr = !digitalRead(SENSOR_FAR_RIGHT);// Far Right
+void loop() {
+  // --- 1. SENSING ---
+  // Read sensors. Inverting logic (!) assuming Low (0) is Black Line.
+  bool s_far_l = !digitalRead(PIN_SENSOR_FAR_L);
+  bool s_l     = !digitalRead(PIN_SENSOR_L);
+  bool s_mid   = !digitalRead(PIN_SENSOR_MID);
+  bool s_r     = !digitalRead(PIN_SENSOR_R);
+  bool s_far_r = !digitalRead(PIN_SENSOR_FAR_R);
 
-// --- Logic Control ---
+  if (DEBUG_MODE) printSensorStatus(s_far_l, s_l, s_mid, s_r, s_far_r);
+
+  // --- 2. DECISION LOGIC (Priority Cascade) ---
   
-// 1. Center: Go Forward
-  if (m == 1 && l == 0 && r == 0) 
-  {
-    moveRobot(SPEED_FORWARD, SPEED_FORWARD);
+  // CASE A: Center Aligned (Go Forward)
+  if (s_mid && !s_l && !s_r) {
+    moveRobot(SPEED_BASE, SPEED_BASE);
   }
-  // 2. Slight Left Deviation: Turn Left gently
-  else if (l == 1 && m == 0) {
-    moveRobot(SPEED_TURN_SLIGHT, SPEED_FORWARD); // Slow down left motor
+  // CASE B: Slight Left Deviation -> Correct Right
+  else if (s_l && !s_far_l) {
+    moveRobot(SPEED_SLOW, SPEED_FAST); 
   }
-// 3. Sharp Left Deviation: Turn Left sharply
-  else if (fl == 1) 
-  {
-    moveRobot(0, SPEED_TURN_SHARP); // Stop left motor, boost right
+  // CASE C: Slight Right Deviation -> Correct Left
+  else if (s_r && !s_far_r) {
+    moveRobot(SPEED_FAST, SPEED_SLOW);
   }
-// 4. Slight Right Deviation: Turn Right gently
-  else if (r == 1 && m == 0) {
-    moveRobot(SPEED_FORWARD, SPEED_TURN_SLIGHT); // Slow down right motor
+  // CASE D: Extreme Left (90 degree turn) -> Spin Left
+  else if (s_far_l) {
+    // Left motor backwards, Right motor fast forward
+    moveRobot(SPEED_REVERSE, SPEED_FAST);
   }
-// 5. Sharp Right Deviation: Turn Right sharply
-  else if (fr == 1) {
-    moveRobot(SPEED_TURN_SHARP, 0); // Stop right motor, boost left
+  // CASE E: Extreme Right (90 degree turn) -> Spin Right
+  else if (s_far_r) {
+    // Left motor fast forward, Right motor backwards
+    moveRobot(SPEED_FAST, SPEED_REVERSE);
   }
-// 6. Intersection or Stop (All sensors black or all white)
-  else if (fl == 0 && l == 0 && m == 0 && r == 0 && fr == 0)
-   {
-  // Stop if line is lost
+  // CASE F: Line Lost or All White -> Stop (Safety)
+  else if (!s_mid && !s_l && !s_r && !s_far_l && !s_far_r) {
     stopRobot();
   }
+  // CASE G: All Black (Intersection) -> Go Forward (Optional)
+  else {
+    moveRobot(SPEED_BASE, SPEED_BASE);
+  }
 }
 
-// --- Movement Helper Function ---
-// leftSpeed and rightSpeed: 0 to 255
-void moveRobot(int leftSpeed, int rightSpeed) 
-{
-  // Motor A (Right)
-  digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, rightSpeed);
+// --- 3. ACTUATION (Helper Functions) ---
 
-  // Motor B (Left)
-  digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, LOW);
-  analogWrite(ENB, leftSpeed);
+/**
+ * Controls both motors. 
+ * Positive speed = Forward, Negative speed = Backward
+ * speedLeft: -255 to 255
+ * speedRight: -255 to 255
+ */
+void moveRobot(int speedLeft, int speedRight) {
+  controlMotor(speedLeft, PIN_MotorB_IN3, PIN_MotorB_IN4, PIN_MotorB_ENB);
+  controlMotor(speedRight, PIN_MotorA_IN1, PIN_MotorA_IN2, PIN_MotorA_ENA);
 }
 
-void stopRobot() 
-{
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, 0);
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, LOW);
-  analogWrite(ENB, 0);
+// Low-level motor controller handles direction
+void controlMotor(int speed, int pinIn1, int pinIn2, int pinPWM) {
+  if (speed > 0) {
+    digitalWrite(pinIn1, HIGH);
+    digitalWrite(pinIn2, LOW);
+    analogWrite(pinPWM, speed);
+  } 
+  else if (speed < 0) {
+    digitalWrite(pinIn1, LOW);
+    digitalWrite(pinIn2, HIGH);
+    analogWrite(pinPWM, abs(speed)); // Convert -100 to 100 for PWM
+  } 
+  else {
+    digitalWrite(pinIn1, LOW);
+    digitalWrite(pinIn2, LOW);
+    analogWrite(pinPWM, 0);
+  }
+}
+
+void stopRobot() {
+  moveRobot(0, 0);
+}
+
+// Debugging Helper
+void printSensorStatus(bool fl, bool l, bool m, bool r, bool fr) {
+  Serial.print(fl); Serial.print(" ");
+  Serial.print(l);  Serial.print(" ");
+  Serial.print(m);  Serial.print(" ");
+  Serial.print(r);  Serial.print(" ");
+  Serial.println(fr);
 }
