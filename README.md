@@ -18,7 +18,7 @@
 ## 🎥 Demo: Robot in Action
 Click the link below to watch the robot successfully tracking the line:
 
-### [▶️ Watch Finale Round Video](./assets/Finale_round.MOV)
+### [▶️ Watch Finale Round Video](./assets/Finale_round.mp4)
 
 ---
 
@@ -27,30 +27,30 @@ Explore the detailed engineering documentation:
 
 | 📘 Architecture & Logic | ⚙️ Hardware & Specs |
 | :--- | :--- |
-| ➡️ [**System Architecture Overview**](./SYSTEM_ARCHITECTURE.md)<br>_High-level diagrams, HW/SW breakdown_ | ➡️ [**Hardware Specifications**](./HARDWARE_SPECIFICATIONS.md)<br>_Pinout, components, and wiring_ |
-| ➡️ [**Control Logic & Algorithms**](./CONTROL_LOGIC.md)<br>_Decision states, state machine, and flow_ | 📄 [**Source Code**](./robot_main_5_sensors.ino)<br>_Main Arduino implementation_ |
+| ➡️ [**System Architecture Overview**](./docs/SYSTEM_ARCHITECTURE.md)<br>_High-level diagrams, HW/SW breakdown_ | ➡️ [**Hardware Specifications**](./docs/HARDWARE_SPECIFICATIONS.md)<br>_Pinout, components, and wiring_ |
+| ➡️ [**Control Logic & Algorithms**](./docs/CONTROL_LOGIC.md)<br>_Decision states, state machine, and flow_ | 📄 [**Source Code**](./src/robot_main_5_sensors.ino)<br>_Main Arduino implementation_ |
 
 ---
 
 ## ⚡ Key Capabilities
 * **Precision Sensing:** 5-channel TCRT5000 IR array for granular line position detection.
 * **Smart Navigation:** Differential steering logic handling straight paths, curves, and 90° turns.
-* ** robust Control:** Prioritized state machine preventing sensor conflict.
+* **Robust Control:** Prioritized state machine preventing sensor conflict.
 * **Power Management:** Split 7.4V distribution for high-current motors and sensitive logic.
 
 ---
 
 ## 🚀 Getting Started
 1.  **Prerequisites:** Arduino IDE, Standard USB Cable (Type-B).
-2.  **Setup:** Clone this repo and open `robot_main_5_sensors.ino`.
+2.  **Setup:** Clone this repo and open `src/robot_main_5_sensors.ino`.
 3.  **Upload:** Connect Arduino Uno and upload the sketch.
 4.  **Run:** Place robot on a black-line track and power on.
-5.  
+
 ---
 
 # Repository Structure
 
-![Repository Structure](./repo_structure.png)
+![Repository Structure](./assets/repo_structure.png)
 
 ---
 
@@ -75,22 +75,6 @@ While the current system uses specific logic states, the next engineering step i
 * **Proportional (P):** Steer harder as the error increases.
 * **Integral (I):** Correct accumulated errors over time.
 * **Derivative (D):** Predict future errors based on rate of change to reduce oscillation.
-  
-This repository is organized as follows:
- *  `src/` - Main source code files.
- *  `docs/` - Detailed documentation files (linked above).
- *  `videos/` - Demonstration footage.
 
+---
 *Designed and implemented by [Idan Vimenetz]*
-
-
-
-
-
-
-
-
-
-
-
-
