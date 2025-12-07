@@ -38,32 +38,12 @@ Explore the detailed engineering documentation:
 2.  **Setup:** Clone this repo and open `robot_main_5_sensors.ino`.
 3.  **Upload:** Connect Arduino Uno and upload the sketch.
 4.  **Run:** Place robot on a black-line track and power on.
-
+5.  
 ---
 
-## 📂 Repository Structure
+# Repository Structure
 
-```mermaid
-graph TD
-    subgraph Artifacts["Repository Artifacts"]
-        Code[robot_main_5_sensors.ino<br>Source Code]
-        Docs[README.md<br>Documentation]
-        Video[Finale_round.MOV<br>Demo Video]
-    end
-
-    subgraph Context["System Context"]
-        Impl[Implementation<br>5-Sensor Logic]
-        Design[Design Specs<br>Architecture]
-        Perf[Performance<br>Real-world Test]
-    end
-
-    Code -->|Implements| Impl
-    Docs -->|Documents| Design
-    Video -->|Demonstrates| Perf
-
-    style Artifacts fill:#f9f9f9,stroke:#333,stroke-dasharray: 5 5
-    style Context fill:#e1f5fe,stroke:#333
-```
+![Repository Structure](./repo_structure.png)
 
 ---
 
@@ -95,6 +75,7 @@ This repository is organized as follows:
  *  `videos/` - Demonstration footage.
 
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
