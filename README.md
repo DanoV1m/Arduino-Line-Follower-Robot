@@ -26,9 +26,11 @@ Explore the detailed engineering documentation:
 ---
 
 ## 🎥 Demo: Robot in Action
-Watch the robot successfully tracking the line (Click to see full video):
+Watch the robot successfully tracking the line:
 
-[![Watch Robot](./assets/robot_preview.gif)](./assets/Finale_round.mp4)
+![Robot Preview](./assets/robot_preview.gif)
+
+### [🎬 Click here to watch the Full Video (High Quality)](./assets/Finale_round.mp4)
 
 ---
 
@@ -78,6 +80,7 @@ While the current system uses specific logic states, the next engineering step i
 
 ---
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
