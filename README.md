@@ -17,8 +17,7 @@
 
 ## 🎥 Demo: Robot in Action
 Click the link below to watch the robot successfully tracking the line:
-
-### [▶️ Watch Finale Round Video](./assets/Finale_round.mp4)
+[![Watch Robot in Action](./assets/robot_preview.gif)](./assets/Finale_round.mp4)
 
 ---
 
@@ -78,3 +77,4 @@ While the current system uses specific logic states, the next engineering step i
 
 ---
 *Designed and implemented by [Idan Vimenetz]*
+
