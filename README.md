@@ -15,13 +15,6 @@
 
 ---
 
-## 🎥 Demo: Robot in Action
-Watch the robot successfully tracking the line:
-
-![Robot in Action](./assets/robot_preview.gif)
-
----
-
 ## 📚 Documentation Hub
 Explore the detailed engineering documentation:
 
@@ -29,6 +22,13 @@ Explore the detailed engineering documentation:
 | :--- | :--- |
 | ➡️ [**System Architecture Overview**](./docs/SYSTEM_ARCHITECTURE.md)<br>_High-level diagrams, HW/SW breakdown_ | ➡️ [**Hardware Specifications**](./docs/HARDWARE_SPECIFICATIONS.md)<br>_Pinout, components, and wiring_ |
 | ➡️ [**Control Logic & Algorithms**](./docs/CONTROL_LOGIC.md)<br>_Decision states, state machine, and flow_ | 📄 [**Source Code**](./src/robot_main_5_sensors.ino)<br>_Main Arduino implementation_ |
+
+---
+
+## 🎥 Demo: Robot in Action
+Watch the robot successfully tracking the line (Click to see full video):
+
+[![Watch Robot](./assets/robot_preview.gif)](./assets/Finale_round.mp4)
 
 ---
 
@@ -78,5 +78,6 @@ While the current system uses specific logic states, the next engineering step i
 
 ---
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
