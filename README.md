@@ -56,7 +56,7 @@ Watch the robot successfully tracking the line:
 
 ---
 
-## 📸 Project Gallery
+##  Project Gallery
 
 ### 1. Lab Testing Environment
 Testing signal integrity using an oscilloscope during development.
@@ -80,6 +80,7 @@ While the current system uses specific logic states, the next engineering step i
 
 ---
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
