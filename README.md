@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 Autonomous Line Follower Robot
+#  Autonomous Line Follower Robot
 
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B)
 ![Platform](https://img.shields.io/badge/Platform-Arduino_Uno-00979D?style=for-the-badge&logo=arduino)
@@ -15,26 +15,26 @@
 
 ---
 
-## 📚 Documentation Hub
+##  Documentation Hub
 Explore the detailed engineering documentation:
 
-| 📘 Architecture & Logic | ⚙️ Hardware & Specs |
+|  Architecture & Logic |  Hardware & Specs |
 | :--- | :--- |
 | ➡️ [**System Architecture Overview**](./docs/SYSTEM_ARCHITECTURE.md)<br>_High-level diagrams, HW/SW breakdown_ | ➡️ [**Hardware Specifications**](./docs/HARDWARE_SPECIFICATIONS.md)<br>_Pinout, components, and wiring_ |
-| ➡️ [**Control Logic & Algorithms**](./docs/CONTROL_LOGIC.md)<br>_Decision states, state machine, and flow_ | 📄 [**Source Code**](./src/robot_main_5_sensors.ino)<br>_Main Arduino implementation_ |
+| ➡️ [**Control Logic & Algorithms**](./docs/CONTROL_LOGIC.md)<br>_Decision states, state machine, and flow_ |  [**Source Code**](./src/robot_main_5_sensors.ino)<br>_Main Arduino implementation_ |
 
 ---
 
-## 🎥 Demo: Robot in Action
+##  Demo: Robot in Action
 Watch the robot successfully tracking the line:
 
 ![Robot Preview](./assets/robot_preview.gif)
 
-### [🎬 Click here to watch the Full Video (High Quality)](./assets/Finale_round.mp4)
+### [ Click here to watch the Full Video (High Quality)](./assets/Finale_round.mp4)
 
 ---
 
-## ⚡ Key Capabilities
+##  Key Capabilities
 * **Precision Sensing:** 5-channel TCRT5000 IR array for granular line position detection.
 * **Smart Navigation:** Differential steering logic handling straight paths, curves, and 90° turns.
 * **Robust Control:** Prioritized state machine preventing sensor conflict.
@@ -42,7 +42,7 @@ Watch the robot successfully tracking the line:
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 1.  **Prerequisites:** Arduino IDE, Standard USB Cable (Type-B).
 2.  **Setup:** Clone this repo and open `src/robot_main_5_sensors.ino`.
 3.  **Upload:** Connect Arduino Uno and upload the sketch.
@@ -70,7 +70,7 @@ Complete assembly showing cable management and component placement.
 Side profile showing the double-deck chassis and battery placement.
 ![Side View](./assets/side_view.jpg)
 
-## 🔮 Future Roadmap (PID Control)
+##  Future Roadmap (PID Control)
 
 While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative):
 
@@ -80,6 +80,7 @@ While the current system uses specific logic states, the next engineering step i
 
 ---
 *Designed and implemented by [Idan Vimenetz]*
+
 
 
 
