@@ -86,3 +86,6 @@ While the current system uses specific logic states, the next engineering step i
 
 
 
+
+## Experimental PID and validation
+The engineering review adds an optional discrete PID mode, disabled by default. See [bench validation and calibration](docs/BENCH_VALIDATION.md) before enabling it. Host regression and Uno compilation are not physical performance measurements.
