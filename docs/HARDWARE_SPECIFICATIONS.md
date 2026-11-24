@@ -1,7 +1,7 @@
 # Hardware Specifications & Pinout
 
 ## 🔌 Wiring & Connections Overview
-The following diagram illustrates the high-level wiring between the Power Unit, MCU, Motor Driver, and Sensors.
+This section documents code-derived wiring, not a verified assembly.
 
 Historical diagram omitted because it has not been reconciled with the code. Verify physical wiring against the code-derived table below before connecting hardware.
 
@@ -39,4 +39,4 @@ This mapping defines how the code interacts with the physical hardware.
 
 ## 🔋 Power Management
 * **Voltage Regulation:** Do not feed a 5 V output into Vin. Verify regulator mode, battery and motor ratings and the correct Arduino supply connection before applying power. Use USB for initial logic-only testing with motor power disconnected; verify common ground and wiring before enabling motors.
-* **Safety:** A master switch is installed between the battery positive terminal and the driver input.
+* **Safety:** Verify a suitable master cutoff is present and working before enabling motor power. The listed component ratings are historical; do not assume the battery voltage is safe for the motors.
