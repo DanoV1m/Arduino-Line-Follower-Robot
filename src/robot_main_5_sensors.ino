@@ -1,4 +1,10 @@
 #include "control_logic.h"
+#include "line_pid.h"
+
+// Experimental; keep the verified state machine as the default.
+const bool USE_PID = false;
+LinePid linePid(35.0f, 4.0f, 0.6f);
+unsigned long lastSample = 0;
 /**
  * ----------------------------------------------------------------------------
  * Project: Autonomous Line Follower Robot (5-Sensor Array)
@@ -55,6 +61,10 @@ void setup() {
 }
 
 void loop() {
+  const unsigned long now = millis();
+  const unsigned long elapsed = now - lastSample;
+  if (USE_PID && elapsed < 20) return;
+  lastSample = now;
   // --- 1. SENSING ---
   // Read sensors. Inverting logic (!) assuming Low (0) is Black Line.
   bool s_far_l = !digitalRead(PIN_SENSOR_FAR_L);
@@ -65,7 +75,9 @@ void loop() {
 
   if (DEBUG_MODE) printSensorStatus(s_far_l, s_l, s_mid, s_r, s_far_r);
 
-  const DriveCommand command = decideDrive(s_far_l, s_l, s_mid, s_r, s_far_r);
+  const DriveCommand command = USE_PID
+      ? linePid.update(s_far_l, s_l, s_mid, s_r, s_far_r, elapsed * 0.001f)
+      : decideDrive(s_far_l, s_l, s_mid, s_r, s_far_r);
   moveRobot(command.left, command.right);
 }
 
