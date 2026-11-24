@@ -1,3 +1,4 @@
+#include "control_logic.h"
 /**
  * ----------------------------------------------------------------------------
  * Project: Autonomous Line Follower Robot (5-Sensor Array)
@@ -12,14 +13,7 @@
  */
 
 // --- Configuration & Tuning ---
-// Set to true to see sensor values in Serial Monitor (slows down robot!)
-#define DEBUG_MODE false 
-
-// Motor Speed Settings (PWM: 0-255)
-const int SPEED_BASE        = 100; // Normal forward speed
-const int SPEED_FAST        = 140; // Boost speed for turns
-const int SPEED_SLOW        = 80;  // Slow wheel during gentle turn
-const int SPEED_REVERSE     = -120;// Reverse speed for sharp turns (Spin)
+#define DEBUG_MODE false
 
 // --- Pin Definitions ---
 // Motor A (Right)
@@ -55,6 +49,7 @@ void setup() {
   pinMode(PIN_SENSOR_R,     INPUT);
   pinMode(PIN_SENSOR_FAR_R, INPUT);
   
+  stopRobot();
   Serial.begin(9600);
   if(DEBUG_MODE) Serial.println("System Initialized - Waiting for line...");
 }
@@ -70,38 +65,8 @@ void loop() {
 
   if (DEBUG_MODE) printSensorStatus(s_far_l, s_l, s_mid, s_r, s_far_r);
 
-  // --- 2. DECISION LOGIC (Priority Cascade) ---
-  
-  // CASE A: Center Aligned (Go Forward)
-  if (s_mid && !s_l && !s_r) {
-    moveRobot(SPEED_BASE, SPEED_BASE);
-  }
-  // CASE B: Slight Left Deviation -> Correct Right
-  else if (s_l && !s_far_l) {
-    moveRobot(SPEED_SLOW, SPEED_FAST); 
-  }
-  // CASE C: Slight Right Deviation -> Correct Left
-  else if (s_r && !s_far_r) {
-    moveRobot(SPEED_FAST, SPEED_SLOW);
-  }
-  // CASE D: Extreme Left (90 degree turn) -> Spin Left
-  else if (s_far_l) {
-    // Left motor backwards, Right motor fast forward
-    moveRobot(SPEED_REVERSE, SPEED_FAST);
-  }
-  // CASE E: Extreme Right (90 degree turn) -> Spin Right
-  else if (s_far_r) {
-    // Left motor fast forward, Right motor backwards
-    moveRobot(SPEED_FAST, SPEED_REVERSE);
-  }
-  // CASE F: Line Lost or All White -> Stop (Safety)
-  else if (!s_mid && !s_l && !s_r && !s_far_l && !s_far_r) {
-    stopRobot();
-  }
-  // CASE G: All Black (Intersection) -> Go Forward (Optional)
-  else {
-    moveRobot(SPEED_BASE, SPEED_BASE);
-  }
+  const DriveCommand command = decideDrive(s_far_l, s_l, s_mid, s_r, s_far_r);
+  moveRobot(command.left, command.right);
 }
 
 // --- 3. ACTUATION (Helper Functions) ---
@@ -119,6 +84,7 @@ void moveRobot(int speedLeft, int speedRight) {
 
 // Low-level motor controller handles direction
 void controlMotor(int speed, int pinIn1, int pinIn2, int pinPWM) {
+  speed = constrain(speed, -255, 255);
   if (speed > 0) {
     digitalWrite(pinIn1, HIGH);
     digitalWrite(pinIn2, LOW);
