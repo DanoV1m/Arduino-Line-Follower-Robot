@@ -1,0 +1,17 @@
+name: Robot checks
+on:
+  pull_request:
+  push:
+    branches: ['upgrade/**']
+permissions:
+  contents: read
+jobs:
+  logic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: g++ -std=c++11 -Wall -Wextra -Werror tests/control_logic_test.cpp -o /tmp/robot-test && /tmp/robot-test
+      - run: g++ -std=c++11 -Wall -Wextra -Werror tests/line_pid_test.cpp -o /tmp/pid-test && /tmp/pid-test
+      - uses: arduino/setup-arduino-cli@v2
+      - run: arduino-cli core update-index && arduino-cli core install arduino:avr
+      - run: mkdir -p /tmp/robot_main_5_sensors && cp src/robot_main_5_sensors.ino src/control_logic.h src/line_pid.h /tmp/robot_main_5_sensors/ && arduino-cli compile --fqbn arduino:avr:uno /tmp/robot_main_5_sensors

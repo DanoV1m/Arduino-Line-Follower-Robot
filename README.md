@@ -4,11 +4,11 @@
 
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B)
 ![Platform](https://img.shields.io/badge/Platform-Arduino_Uno-00979D?style=for-the-badge&logo=arduino)
-![Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Review_candidate-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 <p align="center">
-  <strong>A high-precision autonomous navigation system using 5-channel IR sensing and differential steering logic.</strong>
+  <strong>An educational autonomous navigation system using 5-channel IR sensing and differential steering logic.</strong>
 </p>
 
 </div>
@@ -26,7 +26,7 @@ Explore the detailed engineering documentation:
 ---
 
 ##  Demo: Robot in Action
-Watch the robot successfully tracking the line:
+Historical demonstration of the original robot; the review firmware has not been physically retested.
 
 ![Robot Preview](./assets/robot_preview.gif)
 
@@ -45,8 +45,8 @@ Watch the robot successfully tracking the line:
 ##  Getting Started
 1.  **Prerequisites:** Arduino IDE, Standard USB Cable (Type-B).
 2.  **Setup:** Clone this repo and open `src/robot_main_5_sensors.ino`.
-3.  **Upload:** Connect Arduino Uno and upload the sketch.
-4.  **Run:** Place robot on a black-line track and power on.
+3. **Preflight:** Follow [bench validation](docs/BENCH_VALIDATION.md) with motor power disconnected and verify wiring before upload.
+4. **Upload and run:** Test with wheels lifted before track trials. Leave experimental PID disabled until calibration.
 
 ---
 
@@ -70,9 +70,9 @@ Complete assembly showing cable management and component placement.
 Side profile showing the double-deck chassis and battery placement.
 ![Side View](./assets/side_view.jpg)
 
-##  Future Roadmap (PID Control)
+##  PID Control (experimental)
 
-While the current system uses specific logic states, the next engineering step is implementing **PID Control** (Proportional-Integral-Derivative):
+While the current system uses specific logic states, the review firmware includes an experimental **PID Control** mode, pending physical validation (Proportional-Integral-Derivative):
 
 * **Proportional (P):** Steer harder as the error increases.
 * **Integral (I):** Correct accumulated errors over time.
@@ -86,3 +86,6 @@ While the current system uses specific logic states, the next engineering step i
 
 
 
+
+## Experimental PID and validation
+The engineering review adds an optional discrete PID mode, disabled by default. See [bench validation and calibration](docs/BENCH_VALIDATION.md) before enabling it. Host regression and Uno compilation are not physical performance measurements.
